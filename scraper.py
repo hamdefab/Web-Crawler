@@ -1,5 +1,5 @@
 import re
-from urllib.parse import urlparse
+from urllib.parse import urlparse, urldefrag
 import urllib
 from bs4 import BeautifulSoup
 
@@ -42,7 +42,7 @@ def extract_next_links(url, resp):
             
             for i in soup.findall('a', href = True):
                 temp = i['href'] 
-                link = urllib.parser.urljoin("https://" + parsed.netloc, temp)
+                link = urllib.parse.urljoin("https://" + parsed.netloc, temp)
                 answer.append(urldefrag(link)[0])
                 urlFile.write(urldefrag(link)[0] + "\n")
         urlFile.close()
