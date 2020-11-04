@@ -19,15 +19,14 @@ def extract_next_links(url, resp):
     
     if is_valid(url) and if_crawled_before(url):
         if 200 <= resp.status <= 202:
-            print (url)
             html_doc = resp.raw_response.content
-            soup = BeautifulSoup(html_doc, 'html_parser')
+            soup = BeautifulSoup(html_doc, 'html.parser')
 
             with open("links.txt","a", encoding="utf-8") as urlFile:
                 urlFile.write(url + "/n")
 
                 for word in soup.text.split():
-                    if word.isalphanum() and not word == "":
+                    if word.isalnum() and not word == "":
                         tokens.append(word)
                 longest[url] = len(tokens)
 
@@ -38,7 +37,8 @@ def extract_next_links(url, resp):
                     contentFile.write(url + "\n" + str(tokens) + "\n")
                 contentFile.close()
                 
-                for i in soup.findall('a', href = True):
+                for i in soup.find_all('a', href = True):
+                    print(url)
                     temp = i['href'] 
                     link = urllib.parse.urljoin("https://" + parsed.netloc, temp)
                     answer.append(urldefrag(link)[0])
@@ -67,35 +67,25 @@ def is_valid(url):
 
         if domain.startswith("www."):
             domain = domain.strip("www.")
-        
-        # subdomain = domain
+
         domainlist = domain.split(".")
 
         subdomain = ".".join(domainlist)
 
-        print(subdomain + "\n")
-
         if len(domainlist) >= 4:
             subdomain = ".".join(domainlist[1:])
         
-        print(subdomain + "\n")
 
         if domain == "today.uci.edu" and \
             "/department/information_computer_sciences" in parsed.path:
-            valid == True
-        
-        print(subdomain + "\n")
+            valid = True
 
         for eachSite in allowed:
             if subdomain == eachSite:
-                valid == True
-
-        print(subdomain + "\n")
+                valid = True
 
         if valid == False:
             return False
-        
-        print(subdomain + "\n")
 
         if parsed.scheme not in set(["http", "https"]):
             return False
