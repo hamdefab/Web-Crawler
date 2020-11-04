@@ -17,7 +17,6 @@ def extract_next_links(url, resp):
     tokens = []
     parsed = urlparse(url)
     
-<<<<<<< HEAD
     if is_valid(url) and if_crawled_before(url):
         if 200 <= resp.status <= 202:
             print ("something")
@@ -46,36 +45,6 @@ def extract_next_links(url, resp):
                     urlFile.write(urldefrag(link)[0] + "\n")
             urlFile.close()
 
-=======
-    if not is_valid(url) or not if_crawled_before(url):
-        return list()
-    
-    if 200 <= resp.status <= 202:
-        html_doc = resp.raw_response.content
-        soup = BeautifulSoup(html_doc, 'html_parser')
-
-        with open("links.txt","a", encoding="utf-8") as urlFile:
-            urlFile.write(url + "/n")
-
-            for word in soup.text.split():
-                if word.isalphanum() and not word == "":
-                    tokens.append(word)
-            longest[url] = len(tokens)
-
-            with open("question2.txt","a", encoding="utf-8") as longestFile:
-                longestFile.write(url + "\n" + str(longest[url]) + "\n")
-            longestFile.close()
-            with open("question3.txt","a", encoding="utf-8") as contentFile:
-                contentFile.write(url + "\n" + str(tokens) + "\n")
-            contentFile.close()
-            
-            for i in soup.findall('a', href = True):
-                temp = i['href'] 
-                link = urllib.parse.urljoin("https://" + parsed.netloc, temp)
-                answer.append(urldefrag(link)[0])
-                urlFile.write(urldefrag(link)[0] + "\n")
-        urlFile.close()
->>>>>>> 3d88c8f1f64f24c16c4e04efd2cfe53bda4dc217
     return answer
 
 def if_crawled_before(url):
