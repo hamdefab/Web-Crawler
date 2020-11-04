@@ -19,7 +19,7 @@ def extract_next_links(url, resp):
     
     if is_valid(url) and if_crawled_before(url):
         if 200 <= resp.status <= 202:
-            print ("something")
+            print (url)
             html_doc = resp.raw_response.content
             soup = BeautifulSoup(html_doc, 'html_parser')
 
@@ -59,31 +59,43 @@ def if_crawled_before(url):
 
 def is_valid(url):
     try:
+        allowed = ["ics.uci.edu", "cs.uci.edu", "informatics.uci.edu", "stat.uci.edu"]
+
         valid = False
         parsed = urlparse(url)
         domain = parsed.netloc
 
-        # if domain.startswith("www."):
-        #     domain = domain.strip("www.")
+        if domain.startswith("www."):
+            domain = domain.strip("www.")
         
         # subdomain = domain
+        domainlist = domain.split(".")
 
-        # if len(domain) > 3:
-        #     subdomain = ".".join(domain[1:])
+        subdomain = ".".join(domainlist)
 
-        allowed = ["ics.uci.edu", "cs.uci.edu", "informatics.uci.edu", "stat.uci.edu"]
-        #lastSite = "today.uci.edu/department/information_computer_sciences"
+        print(subdomain + "\n")
+
+        if len(domainlist) >= 4:
+            subdomain = ".".join(domainlist[1:])
+        
+        print(subdomain + "\n")
 
         if domain == "today.uci.edu" and \
-            "/department/information_computer_sciences" in url.path:
-            return True
+            "/department/information_computer_sciences" in parsed.path:
+            valid == True
+        
+        print(subdomain + "\n")
 
         for eachSite in allowed:
-            if domain == eachSite:
-                return True
+            if subdomain == eachSite:
+                valid == True
+
+        print(subdomain + "\n")
 
         if valid == False:
             return False
+        
+        print(subdomain + "\n")
 
         if parsed.scheme not in set(["http", "https"]):
             return False
