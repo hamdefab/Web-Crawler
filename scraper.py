@@ -38,7 +38,6 @@ def extract_next_links(url, resp):
                 contentFile.close()
                 
                 for i in soup.find_all('a', href = True):
-                    print(url)
                     temp = i['href'] 
                     link = urllib.parse.urljoin("https://" + parsed.netloc, temp)
                     answer.append(urldefrag(link)[0])
@@ -80,11 +79,21 @@ def is_valid(url):
             "/department/information_computer_sciences" in parsed.path:
             valid = True
 
+        if domain == "wics.ics.uci.edu" and \
+            "/event" in parsed.path:
+            return False
+
+        if domain == "archives.ics.uci.edu":
+            return False
+
         for eachSite in allowed:
             if subdomain == eachSite:
                 valid = True
 
         if valid == False:
+            return False
+
+        if "calender" in parsed.path or "calendar" in parsed.query:
             return False
 
         if parsed.scheme not in set(["http", "https"]):
