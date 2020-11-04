@@ -93,7 +93,7 @@ def is_valid(url):
         if valid == False:
             return False
 
-        if "calender" in parsed.path or "calendar" in parsed.query:
+        if "calendar" in parsed.path or "calendar" in parsed.query:
             return False
 
         if parsed.scheme not in set(["http", "https"]):
