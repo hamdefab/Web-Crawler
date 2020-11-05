@@ -85,7 +85,7 @@ def is_valid(url):
         if domain == "archives.ics.uci.edu":
             return False
         
-        if domain == "hack.ics.uci.edu" and "gallery" in parsed.path:
+        if domain == "hack.ics.uci.edu":
             return False
 
         for eachSite in allowed:
