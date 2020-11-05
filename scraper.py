@@ -82,7 +82,7 @@ def is_valid(url):
         if domain == "wics.ics.uci.edu":
             return False
 
-        if domain == "archives.ics.uci.edu":
+        if domain == "archive.ics.uci.edu":
             return False
         
         if domain == "hack.ics.uci.edu":
@@ -105,7 +105,7 @@ def is_valid(url):
                       "mid","mp2","mp3","mp4","wav","avi","mov","mpeg",
                       "m4v","mkv","ogg","ogv","pdf","ps","eps","tex","ppt",
                       "pptx","doc","docx","gif","xls","dat","exe","bz2",
-                      "tar","msi","bin","7z","psd","dmg","iso","epub",
+                      "tar","msi","bin","7z","psd","dmg","iso","epub","DS_Store"
                       "cnf","tgz","sha1","thmx","mso","arff","rtf","jar",
                       "csv","rm","smil","wmv","swf","wma","zip","rar","gz",
                       "svg","txt","py","rkt","ss","json","pdf","jpeg", 
