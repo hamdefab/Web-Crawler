@@ -79,7 +79,7 @@ def is_valid(url):
             "/department/information_computer_sciences" in parsed.path:
             valid = True
 
-        if domain == "wics.ics.uci.edu"
+        if domain == "wics.ics.uci.edu":
             return False
 
         if domain == "archives.ics.uci.edu":
