@@ -79,11 +79,13 @@ def is_valid(url):
             "/department/information_computer_sciences" in parsed.path:
             valid = True
 
-        if domain == "wics.ics.uci.edu" and \
-            "/event" in parsed.path:
+        if domain == "wics.ics.uci.edu"
             return False
 
         if domain == "archives.ics.uci.edu":
+            return False
+        
+        if domain == "hack.ics.uci.edu" and "gallery" in parsed.path:
             return False
 
         for eachSite in allowed:
@@ -93,11 +95,12 @@ def is_valid(url):
         if valid == False:
             return False
 
-        if "calendar" in parsed.path or "calendar" in parsed.query:
-            return False
-
         if parsed.scheme not in set(["http", "https"]):
             return False
+        
+        if "calendar" in parsed.path or "calendar" in parsed.query:
+            return False
+        
         return not re.match(
             r".*\.(css|js|bmp|gif|jpe?g|ico"
             + r"|png|tiff?|mid|mp2|mp3|mp4"
@@ -106,7 +109,8 @@ def is_valid(url):
             + r"|data|dat|exe|bz2|tar|msi|bin|7z|psd|dmg|iso"
             + r"|epub|dll|cnf|tgz|sha1"
             + r"|thmx|mso|arff|rtf|jar|csv"
-            + r"|rm|smil|wmv|swf|wma|zip|rar|gz)$", parsed.path.lower())
+            + r"|rm|smil|wmv|swf|wma"
+            + r"|zip|rar|gz|apk|img|jpeg|jpg)$", parsed.path.lower())
 
     except TypeError:
         print ("TypeError for ", parsed)
