@@ -88,6 +88,15 @@ def is_valid(url):
         if domain == "hack.ics.uci.edu":
             return False
 
+        if domain == "grape.ics.uci.edu":
+            return False
+
+        if domain == "intranet.ics.uci.edu":
+            return False
+
+        if not parsed.params == "":
+            return False
+
         for eachSite in allowed:
             if subdomain == eachSite:
                 valid = True
